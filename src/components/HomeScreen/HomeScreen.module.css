@@ -1,0 +1,29 @@
+.wrapper {
+    text-align: center;
+    height: 100vh;
+}
+
+.container-limits {
+    height: 200px;
+    display: flex;
+    display:flex;
+}
+
+.Login-user-class-paragraph {
+    text-align: center;
+}
+.wrapping-container {
+    float:left;
+}
+.set-row-padding {
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+
+.col-md-3{
+    padding-right: 0!important;
+    padding-left: 0!important;
+}
+.quotes-margin {
+    margin: top 20px !important;
+}
