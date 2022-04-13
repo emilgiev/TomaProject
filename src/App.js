@@ -1,25 +1,24 @@
 import LandingPage from "./components/LandingPage/LandingPage";
-import { Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import HomeScreen from "./components/HomeScreen/HomeScreen";
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useState } from 'react'
 import firebase from '../src/firebase';
 
 
 function App() {
 
+  const [username, setUsername] = useState('')
 
   return (
-    <Router>
-      <Route exact path="/">
-        <LandingPage />
+    <Routes>
+      <Route>
+        <Route exact path="/" element={<LandingPage setUsername={setUsername} />}></Route>
+        <Route exact path="/homepage" element={<HomeScreen username={username} />}></Route>
       </Route>
-      <Route path="/homepage">
-        <HomeScreen />
-      </Route>
-    </Router>
+    </Routes>
   );
 }
+
 
 export default App;
 

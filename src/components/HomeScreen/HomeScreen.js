@@ -8,42 +8,46 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const HomeScreen = (props) => {
 
-const HomeScreen = () => {
+    const username = props.username
+    console.log(username)
 
     return (
+        <div className={styles['wrapper']}>
+            <Container className={styles['wrapping-container']} >
+                <h2 className={styles['Login-user-class-paragraph']}> Welcome {username}!</h2>
+                <Row>
+                    <Col md={2}>
+                        <Container>
+                            <SidePanel />
+                        </Container>
+                    </Col>
+                    <Col md={10}>
+                        <Container>
+                            <Row>
+                                <Col md={3} className={styles['set-row-padding']}>
+                                    <Card />
+                                </Col>
+                                <Col md={3} className={styles['set-row-padding']}>
+                                    <Card />
+                                </Col>
+                                <Col md={3} className={styles['set-row-padding']}>
+                                    <Card />
+                                </Col>
+                                <Col md={3} className={styles['set-row-padding']}>
+                                    <Card />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Quotes />
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
 
-        <Container className={styles['wrapping-container']} >
-            <p className={styles['Login-user-class-paragraph']}> Welcome User!</p>
-            <Row>
-                <Col md={2}>
-                    <Container>
-                        <SidePanel />
-                    </Container>
-                </Col>
-                <Col md={10}>
-                    <Container>
-                        <Row>
-                            <Col md={3} className={styles['set-row-padding']}>
-                                <Card />
-                            </Col>
-                            <Col md={3} className={styles['set-row-padding']}>
-                                <Card />
-                            </Col>
-                            <Col md={3} className={styles['set-row-padding']}>
-                                <Card />
-                            </Col>
-                            <Col md={3} className={styles['set-row-padding']}>
-                                <Card />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Quotes/>
-                        </Row>
-                    </Container>
-                </Col>
-            </Row>
-        </Container>
 
     )
 }
