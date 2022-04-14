@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../ContainerComponent/Card";
 import Quotes from "../QuotesComponent/Quotes";
 import SidePanel from "../SidePanel/SidePanel";
@@ -7,11 +7,29 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { db } from '../../firebase';
 
 const HomeScreen = (props) => {
 
-    const username = props.username
+    const [loadedData, setLoadedData] = useState([]);
+
+    const username = props.email
     console.log(username)
+
+    useEffect(() => {
+        readData();
+    }, [])
+
+    async function readData() {
+        const response = db.collection('Users').get().then((querySnapshot) => {
+            querySnapshot.forEach(element => {
+                const incomingData = element.data();
+                setLoadedData(incomingData)
+            })
+        })
+
+    }
+    console.log(loadedData)
 
     return (
         <div className={styles['wrapper']}>

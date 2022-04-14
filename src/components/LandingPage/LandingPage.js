@@ -5,15 +5,15 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import "bootstrap/dist/css/bootstrap.min.css";
-import ModalDialog from 'react-bootstrap/ModalDialog';
 import Button from 'react-bootstrap/Button';
 
 
 function LandingPage(props) {
 
-    const [email, setEmail] = useState("");
+
     const [password, setPassword] = useState("");
     const [showErrorModal, setShow] = useState(false);
+    const email = props.email
     const auth = getAuth();
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function LandingPage(props) {
             console.log(userCredential.user)
             console.log('Authorized')
             navigate('/homepage')
-            const username = props.setUsername(email)
+            const username = props.setUsername(email);
 
         } catch (err) {
             setShow(true);
@@ -42,28 +42,25 @@ function LandingPage(props) {
 
     return (
         <div className='wrapper'>
-            <form>
+            <form onSubmit={preventDefault}>
                 <h3>Login Here</h3>
                 <label htmlFor="username">Username</label>
-                <input type="text" placeholder="Sigh up with email" id="username" onChange={(e) => setEmail(e.target.value)} ></input>
+                <input type="text" placeholder="Sigh up with email" id="username" onChange={(e) => props.setEmail(e.target.value)} ></input>
                 <label htmlFor="password">Password</label>
                 <input type="password" placeholder="Password" id="password" onChange={(e) => setPassword(e.target.value)}></input>
-                <button className='button' type="submit" onClick={preventDefault} >Log In</button>
+                <button className='button' type="submit" typeof='submit' >Log In</button>
                 {showErrorModal ? <Modal show={showErrorModal} onHide={handleClose}
-                    backdrop="static"
-                    keyboard={false}>
+                    backdrop="static">
                     <Modal.Header>
-                        <Modal.Title>Modal title</Modal.Title>
+                        <Modal.Title>Incorrect Username/Password</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        I will not close if you click outside me. Don't even try to press
-                        escape key.
+                        Please provide the correct credentials
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary">Understood</Button>
                     </Modal.Footer>
                 </Modal> : null}
                 <div className='landingpage-logo'>
