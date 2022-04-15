@@ -13,7 +13,6 @@ const Quotes = () => {
         SetQuote(quotes)
         SetIndex([Math.floor(Math.random() * quotes.length)])
         console.log(SelectedQuote[SelectedIndex])
-        console.log('i fire once')
     }, [])
 
     return (

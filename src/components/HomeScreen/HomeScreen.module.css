@@ -2,7 +2,7 @@
     text-align: center;
     height: 100vh;
     background-size: cover;
-    background-color: antiquewhite;
+    background-color: white;
 }
 
 .container-limits {
@@ -28,4 +28,8 @@
 }
 .quotes-margin {
     margin: top 20px !important;
+}
+.landingpage-logo {
+    text-align: center;
+    height: 185px;
 }

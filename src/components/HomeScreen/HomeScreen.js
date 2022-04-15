@@ -7,13 +7,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { db } from '../../firebase';
+import { getDatabase, ref, onValue } from "firebase/database";
+import { db, firebase } from '../../firebase';
+import 'firebase/compat/auth';
 
 const HomeScreen = (props) => {
 
     const [loadedData, setLoadedData] = useState([]);
-
-    const username = props.email
+    const username = props.email.substring(0, props.email.indexOf('@'))
     console.log(username)
 
     useEffect(() => {
@@ -21,14 +22,15 @@ const HomeScreen = (props) => {
     }, [])
 
     async function readData() {
-        const response = db.collection('Users').get().then((querySnapshot) => {
+        db.collection('Users').get().then((querySnapshot) => {
             querySnapshot.forEach(element => {
                 const incomingData = element.data();
-                setLoadedData(incomingData)
+                setLoadedData(incomingData)        
             })
         })
-
     }
+
+
     console.log(loadedData)
 
     return (

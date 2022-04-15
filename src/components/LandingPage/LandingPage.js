@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState , useRef} from 'react';
 import './LandingPage.css';
 import logo from '../images/LOGO-TOP-1.png';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 
-
 function LandingPage(props) {
 
-
-    const [password, setPassword] = useState("");
     const [showErrorModal, setShow] = useState(false);
-    const email = props.email
-    const auth = getAuth();
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
     const navigate = useNavigate();
 
-
-    async function preventDefault(e) {
+    function sumbitForm(e) {
         e.preventDefault();
-        console.log(email, password)
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            console.log(userCredential.user)
-            console.log('Authorized')
-            navigate('/homepage')
-            const username = props.setUsername(email);
-
-        } catch (err) {
-            setShow(true);
-            console.error(err);
-            console.log('Not Authorized')
-            console.log(showErrorModal)
-        }
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+        const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCNBAxjeKNoAPPjBV0JW4vZ0QaTaOx9-L4';
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true,
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((res) => {
+            if (res.ok) {
+                
+                navigate('/homepage')
+            } else {
+                setShow(true);
+            }
+            return res.json()
+        }).then((data) =>
+            console.log(data))
     }
 
     function handleClose() {
@@ -42,12 +46,12 @@ function LandingPage(props) {
 
     return (
         <div className='wrapper'>
-            <form onSubmit={preventDefault}>
+            <form onSubmit={sumbitForm}>
                 <h3>Login Here</h3>
                 <label htmlFor="username">Username</label>
-                <input type="text" placeholder="Sigh up with email" id="username" onChange={(e) => props.setEmail(e.target.value)} ></input>
+                <input type="text" placeholder="Sigh up with email" id="username" ref={emailInputRef} ></input>
                 <label htmlFor="password">Password</label>
-                <input type="password" placeholder="Password" id="password" onChange={(e) => setPassword(e.target.value)}></input>
+                <input type="password" placeholder="Password" id="password" ref={passwordInputRef}></input>
                 <button className='button' type="submit" typeof='submit' >Log In</button>
                 {showErrorModal ? <Modal show={showErrorModal} onHide={handleClose}
                     backdrop="static">
