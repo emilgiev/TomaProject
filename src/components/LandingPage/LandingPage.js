@@ -1,14 +1,19 @@
-import React, { useState , useRef} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './LandingPage.css';
 import logo from '../images/LOGO-TOP-1.png';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
+import { db, firebase } from '../../firebase';
+import 'firebase/compat/auth';
+
 
 function LandingPage(props) {
 
     const [showErrorModal, setShow] = useState(false);
+    const [userId, StoreUserId] = useState('');
+
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const navigate = useNavigate();
@@ -30,15 +35,19 @@ function LandingPage(props) {
             },
         }).then((res) => {
             if (res.ok) {
-                
+
                 navigate('/homepage')
             } else {
                 setShow(true);
             }
             return res.json()
         }).then((data) =>
-            console.log(data))
+        console.log(data)
+        )
     }
+
+
+  
 
     function handleClose() {
         setShow(false)

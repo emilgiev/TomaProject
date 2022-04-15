@@ -30,6 +30,18 @@ const HomeScreen = (props) => {
         })
     }
 
+    // async function readData() {
+    //     const db = firebase.firestore();
+    //     const data = await db.collection("Users").get();
+    //     let result = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    //     result.filter((q) => {
+    //         console.log(q.id)
+    //         console.log(incomingData);
+    //         return q.id === incomingData.localId;
+    //     })
+    //     console.log(result)
+    // }
+
 
     console.log(loadedData)
 
