@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import './LandingPage.css';
-import logo from '../images/LOGO-TOP-1.png';
+import logo from '../images/logo.png';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
-import { db, firebase } from '../../firebase';
 import 'firebase/compat/auth';
+import { getAuth } from "firebase/auth";
 
 
 function LandingPage(props) {
@@ -17,6 +17,8 @@ function LandingPage(props) {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const navigate = useNavigate();
+    const auth = getAuth();
+
 
     function sumbitForm(e) {
         e.preventDefault();
@@ -35,20 +37,15 @@ function LandingPage(props) {
             },
         }).then((res) => {
             if (res.ok) {
-
                 navigate('/homepage')
             } else {
                 setShow(true);
             }
             return res.json()
         }).then((data) =>
-        console.log(data)
+            console.log(data)
         )
     }
-
-
-  
-
     function handleClose() {
         setShow(false)
     }

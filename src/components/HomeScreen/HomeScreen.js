@@ -11,39 +11,44 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { db, firebase } from '../../firebase';
 import 'firebase/compat/auth';
 
+
+
 const HomeScreen = (props) => {
 
     const [loadedData, setLoadedData] = useState([]);
+    const [checkCurrentRole, setCurrentRole] = useState(false);
     const username = props.email.substring(0, props.email.indexOf('@'))
     console.log(username)
 
     useEffect(() => {
-        readData();
+        // readData();
     }, [])
 
-    async function readData() {
-        db.collection('Users').get().then((querySnapshot) => {
-            querySnapshot.forEach(element => {
-                const incomingData = element.data();
-                setLoadedData(incomingData)        
-            })
-        })
-    }
+
+
+
+
+
+
+
+    // async function readData() {
+    //     db.collection('Users').get().then((querySnapshot) => {
+    //         querySnapshot.forEach(element => {
+    //             const incomingData = element.data();
+    //             setLoadedData(incomingData)        
+    //         })
+    //     })
+    // }
 
     // async function readData() {
     //     const db = firebase.firestore();
     //     const data = await db.collection("Users").get();
     //     let result = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-    //     result.filter((q) => {
-    //         console.log(q.id)
-    //         console.log(incomingData);
-    //         return q.id === incomingData.localId;
-    //     })
-    //     console.log(result)
+    //     result.filter()
     // }
 
 
-    console.log(loadedData)
+
 
     return (
         <div className={styles['wrapper']}>
