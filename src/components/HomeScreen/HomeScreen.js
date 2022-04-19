@@ -21,33 +21,17 @@ const HomeScreen = (props) => {
     console.log(username)
 
     useEffect(() => {
-        // readData();
+        readData();
     }, [])
 
-
-
-
-
-
-
-
-    // async function readData() {
-    //     db.collection('Users').get().then((querySnapshot) => {
-    //         querySnapshot.forEach(element => {
-    //             const incomingData = element.data();
-    //             setLoadedData(incomingData)        
-    //         })
-    //     })
-    // }
-
-    // async function readData() {
-    //     const db = firebase.firestore();
-    //     const data = await db.collection("Users").get();
-    //     let result = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-    //     result.filter()
-    // }
-
-
+    async function readData() {
+        const db = firebase.firestore();
+        const data = await db.collection("Users").get();
+        let result = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+        result.filter((q) => {
+            console.log(q)
+        })
+    }
 
 
     return (

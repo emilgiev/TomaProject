@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import 'firebase/compat/auth';
 import { getAuth } from "firebase/auth";
+import AuthContext from '../../store/auth-context';
 
 
 function LandingPage(props) {
@@ -14,6 +15,7 @@ function LandingPage(props) {
     const [showErrorModal, setShow] = useState(false);
     const [userId, StoreUserId] = useState('');
 
+    const UseCthx = useContext(AuthContext);
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const navigate = useNavigate();
@@ -43,7 +45,7 @@ function LandingPage(props) {
             }
             return res.json()
         }).then((data) =>
-            console.log(data)
+            UseCthx.lo
         )
     }
     function handleClose() {
